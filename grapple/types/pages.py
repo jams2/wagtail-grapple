@@ -23,6 +23,7 @@ class Page(DjangoObjectType):
     class Meta:
         model = WagtailPage
         interfaces = (get_page_interface(),)
+        fields = "__all__"
 
 
 def get_preview_page(token):

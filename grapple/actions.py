@@ -267,6 +267,7 @@ def build_node_type(
 
     class StubMeta:
         model = stub_model
+        fields = "__all__"
 
     # Gather any interfaces, and discard None values
     interface_classes = getattr(cls, "graphql_interfaces", ())

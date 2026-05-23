@@ -15,6 +15,7 @@ class CollectionObjectType(DjangoObjectType):
 
     class Meta:
         model = Collection
+        fields = "__all__"
 
     id = graphene.ID(required=True)
     name = graphene.String(required=True)

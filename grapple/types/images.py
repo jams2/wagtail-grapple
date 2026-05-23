@@ -95,6 +95,7 @@ class ImageRenditionObjectType(DjangoObjectType):
 
     class Meta:
         model = WagtailImageRendition
+        fields = "__all__"
 
     def resolve_url(
         instance: WagtailImageRendition, info: GraphQLResolveInfo, **kwargs
@@ -127,6 +128,7 @@ class ImageObjectType(DjangoObjectType):
 
     class Meta:
         model = WagtailImage
+        fields = "__all__"
 
     def resolve_rendition(
         instance: WagtailImage, info: GraphQLResolveInfo, **kwargs

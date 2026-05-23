@@ -64,6 +64,7 @@ class SiteObjectType(DjangoObjectType):
 
     class Meta:
         model = Site
+        fields = "__all__"
 
 
 def SitesQuery():

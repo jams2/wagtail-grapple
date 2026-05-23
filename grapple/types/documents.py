@@ -38,6 +38,7 @@ class DocumentObjectType(DjangoObjectType):
 
     class Meta:
         model = WagtailDocument
+        fields = "__all__"
 
 
 def get_document_type():
