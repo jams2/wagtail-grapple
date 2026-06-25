@@ -267,6 +267,7 @@ def build_node_type(
 
     class StubMeta:
         model = stub_model
+        fields = "__all__"
 
     # Gather any interfaces, and discard None values
     interface_classes = getattr(cls, "graphql_interfaces", ())
@@ -311,7 +312,7 @@ def load_type_fields():
 
                 type_meta = {"Meta": Meta, "id": graphene.ID(), "name": type_name}
 
-                exclude_fields = []
+                exclude = []
                 base_type_for_exclusion_checks = (
                     base_type if not issubclass(cls, WagtailPage) else WagtailPage
                 )
@@ -326,7 +327,7 @@ def load_type_fields():
                     ):
                         continue
 
-                    exclude_fields.append(field)
+                    exclude.append(field)
 
                 # Add any custom fields to node if they are defined.
                 methods = {}
@@ -340,14 +341,14 @@ def load_type_fields():
                         type_meta[field.field_name] = field_type
 
                         # Remove field from excluded list
-                        if field.field_name in exclude_fields:
-                            exclude_fields.remove(field.field_name)
+                        if field.field_name in exclude:
+                            exclude.remove(field.field_name)
 
                         # Add a custom resolver for each field
                         methods[f"resolve_{field.field_name}"] = model_resolver(field)
 
                 # Replace stud node with real thing
-                type_meta["Meta"].exclude_fields = exclude_fields
+                type_meta["Meta"].exclude = exclude
                 node = type(type_name, (base_type,), type_meta)
 
                 # Add custom resolvers for fields
